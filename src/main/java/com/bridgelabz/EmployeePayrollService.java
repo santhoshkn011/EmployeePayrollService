@@ -14,10 +14,13 @@ public class EmployeePayrollService {
     public EmployeePayrollService (List<EmployeePayrollData> employeePayrollData){
         this.employeePayrollList=employeePayrollData;
     }
-// Create the Read Employee payroll Method
+//      Create the Read Employee payroll Method
+
     public void readEmployeePayRoll(){
         // taking user input of id , name , Salary by scanner class
+
         Scanner sc = new Scanner(System.in);
+
         int id;
         String name;
         int Salary;
@@ -29,9 +32,9 @@ public class EmployeePayrollService {
         Salary = sc.nextInt();
         employeePayrollList.add(new EmployeePayrollData(id,name,Salary));
     }
-    //Create to Write Employee payroll Data Method and passing the message and print employeePayrolllist
+    //      Create the Write Employee payroll Data Method and passing the message and print employeePayrolllist
     public void writeEmployeepayrollData(){
-        System.out.println("\nWriting Employee Payroll Service in Console\n" + employeePayrollList );
+        System.out.println("\nWriting Employee Payroll Service in Console" + employeePayrollList );
     }
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Payroll Service project :-) ");
@@ -42,3 +45,4 @@ public class EmployeePayrollService {
         employeePayrollService.writeEmployeepayrollData();
     }
 }
+
