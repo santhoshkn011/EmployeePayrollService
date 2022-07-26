@@ -18,9 +18,7 @@ public class EmployeePayrollService {
 
     public void readEmployeePayRoll(){
         // taking user input of id , name , Salary by scanner class
-
         Scanner sc = new Scanner(System.in);
-
         int id;
         String name;
         int Salary;
