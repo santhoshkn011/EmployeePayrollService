@@ -3,44 +3,66 @@ package com.bridgelabz;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-/**
- Create an Employee
- Payroll Service to Read
- and Write Employee
- Payroll to a Console - Create Employee Payroll Class of id, name and Salary
- */
-public class EmployeePayrollService {
-    public List<EmployeePayrollData>employeePayrollList;
-    public EmployeePayrollService (List<EmployeePayrollData> employeePayrollData){
-        this.employeePayrollList=employeePayrollData;
-    }
-//      Create the Read Employee payroll Method
 
-    public void readEmployeePayRoll(){
-        // taking user input of id , name , Salary by scanner class
-        Scanner sc = new Scanner(System.in);
-        int id;
-        String name;
-        int Salary;
-        System.out.println("Enter the Employee id :- " );
-        id = sc.nextInt();
-        System.out.println("Enter the Employee Name :- ");
-        name = sc.next();
-        System.out.println("Enter the Employee Salary :- ");
-        Salary = sc.nextInt();
-        employeePayrollList.add(new EmployeePayrollData(id,name,Salary));
+public class EmployeePayrollService {
+    public enum EnumIOService {
+        FILE_IO, CONSOLE_IO, DB_IO;
     }
-    //      Create the Write Employee payroll Data Method and passing the message and print employeePayrolllist
-    public void writeEmployeepayrollData(){
-        System.out.println("\nWriting Employee Payroll Service in Console" + employeePayrollList );
+
+    public List<com.bridgelabz.EmployeePayrollData> employeePayrollList;
+    static Scanner sc = new Scanner(System.in);
+
+    /**
+     * Declared Constructor To Initialize Class Object
+     */
+    public EmployeePayrollService(List<com.bridgelabz.EmployeePayrollData> employeePayrollList) {
+        this.employeePayrollList = employeePayrollList;
     }
-    public static void main(String[] args) {
-        System.out.println("Welcome to Employee Payroll Service project :-) ");
-        ArrayList<EmployeePayrollData> employeepayrollList = new ArrayList<>();
+    /**---Method To Read Employee Payroll Data---*/
+    ;
+
+    public long readEmployeePayRollData(EnumIOService enumIOService) {
+
+        if (enumIOService.equals(EnumIOService.FILE_IO))
+            EmployeePayrollFileIOService.readData();
+        return employeePayrollList.size();
+    }
+    //
+    public void writeEmployeePayrollData (EnumIOService enumIOService ) {
+        if (enumIOService.equals(EnumIOService.CONSOLE_IO))
+            System.out.println("\n Writing Employee Payroll Roaster to Console\n" + employeePayrollList);
+        else if (enumIOService.equals(EnumIOService.FILE_IO))
+            new EmployeePayrollFileIOService().writeData(employeePayrollList);
+    }
+
+
+//        /**---Method to Add Data to the File---*/
+//        public void AddDataToFile (List < EmployeePayrollData > employeeData) {
+//            File file = new File("//home//asus//IdeaProjects//EmployeePayrollService//src//Test.txt");
+//            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
+//                bufferedWriter.write(String.valueOf(employeeData));
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+
+    public static void main(String[]args){
+        System.out.println("Welcome to the Employee Payroll service JDBC :-) ");
+        ArrayList<com.bridgelabz.EmployeePayrollData> employeepayrollList = new ArrayList<>();
         // taking the object of main class and calling the read and write method into main method
         EmployeePayrollService employeePayrollService = new EmployeePayrollService(employeepayrollList);
-        employeePayrollService.readEmployeePayRoll();
-        employeePayrollService.writeEmployeepayrollData();
+        Scanner sc = new Scanner(System.in);
+        //Function Calling
+        employeePayrollService.readEmployeePayRollData(EnumIOService.CONSOLE_IO);
+        employeePayrollService.writeEmployeePayrollData(EnumIOService.FILE_IO);
+    }
+    public static void printData(EnumIOService enumIOService) {
+        if (enumIOService.equals(EnumIOService.FILE_IO))
+            new EmployeePayrollFileIOService().printData();
+    }
+    public static long countEntries(EnumIOService enumIOService) {
+        if (enumIOService.equals(EnumIOService.FILE_IO))
+            new EmployeePayrollFileIOService().countEntries();
+        return 0;
     }
 }
-
